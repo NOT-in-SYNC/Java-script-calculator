@@ -1,138 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calculator</title>
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more modern font */
+            background-color: #1e1e1e; /* Dark, sophisticated background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #2d2d2d; /* Dark calculator body */
+            padding: 25px;
+            border-radius: 12px; /* Slightly more rounded corners */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow for a lifted effect */
+            width: 280px; /* Slightly wider for better spacing */
+        }
+
+        .calculator input {
+        width: 100%;
+        height: 50px;
+        font-size: 24px;
+        text-align: left; /* Align text to the left */
+        margin-bottom: 15px;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background-color: #444;
+        color: #eee;
     }
 
-    .calculator {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 260px;
-    }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px; /* Added some spacing between rows */
+        }
 
-    .calculator input {
-      width: 100%;
-      height: 40px;
-      font-size: 20px;
-      text-align: right;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+        .calculator button {
+            width: 60px; /* Slightly wider buttons */
+            height: 60px; /* Slightly taller buttons */
+            font-size: 22px;
+            margin: 0; /* Remove default button margins */
+            border: none;
+            border-radius: 8px;
+            background-color: #333; /* Dark button background */
+            color: #fff; /* White button text */
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Smooth hover transition */
+        }
 
-    .row {
-      display: flex;
-      justify-content: space-between;
-    }
+        .calculator button:hover {
+            background-color: #555;
+        }
 
-    .calculator button {
-      width: 50px;
-      height: 50px;
-      font-size: 20px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-      background-color: #f1f1f1;
-      cursor: pointer;
-    }
+        .calculator button:active {
+            background-color: #666;
+        }
 
-    .calculator button:hover {
-      background-color: #ddd;
-    }
+        .calculator .equal {
+            background-color: #007bff; /* A cool blue for the equals button */
+            color: white;
+        }
 
-    .calculator button:active {
-      background-color: #ccc;
-    }
+        .calculator .equal:hover {
+            background-color: #0056b3;
+        }
 
-    .calculator .equal {
-      background-color: #4caf50;
-      color: white;
-    }
+        .calculator .clear {
+            background-color: #dc3545; /* A sophisticated red for clear */
+            color: white;
+        }
 
-    .calculator .clear {
-      background-color: #f44336;
-      color: white;
-    }
-  </style>
+        .calculator .clear:hover {
+            background-color: #c82333;
+        }
+
+        /* Adjust operator button styles for better distinction */
+        .calculator button:not(.equal):not(.clear):contains('+'),
+        .calculator button:not(.equal):not(.clear):contains('-'),
+        .calculator button:not(.equal):not(.clear):contains('*'),
+        .calculator button:not(.equal):not(.clear):contains('/') {
+            background-color: #555; /* Slightly lighter for operators */
+        }
+
+        .calculator button:not(.equal):not(.clear):contains('+'):hover,
+        .calculator button:not(.equal):not(.clear):contains('-'):hover,
+        .calculator button:not(.equal):not(.clear):contains('*'):hover,
+        .calculator button:not(.equal):not(.clear):contains('/'):hover {
+            background-color: #777;
+        }
+    </style>
 </head>
 <body>
-  <div class="calculator">
-    <input type="text" id="result" disabled />
-    <div class="row">
-      <button onclick="appendValue('7')">7</button>
-      <button onclick="appendValue('8')">8</button>
-      <button onclick="appendValue('9')">9</button>
-      <button onclick="appendValue('/')">/</button>
+    <div class="calculator">
+        <input type="text" id="result" disabled />
+        <div class="row">
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('/')">/</button>
+        </div>
+        <div class="row">
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('*')">*</button>
+        </div>
+        <div class="row">
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('-')">-</button>
+        </div>
+        <div class="row">
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="clearResult()" class="clear">C</button>
+            <button onclick="calculate()" class="equal">=</button>
+            <button onclick="appendValue('+')">+</button>
+        </div>
     </div>
-    <div class="row">
-      <button onclick="appendValue('4')">4</button>
-      <button onclick="appendValue('5')">5</button>
-      <button onclick="appendValue('6')">6</button>
-      <button onclick="appendValue('*')">*</button>
-    </div>
-    <div class="row">
-      <button onclick="appendValue('1')">1</button>
-      <button onclick="appendValue('2')">2</button>
-      <button onclick="appendValue('3')">3</button>
-      <button onclick="appendValue('-')">-</button>
-    </div>
-    <div class="row">
-      <button onclick="appendValue('0')">0</button>
-      <button onclick="clearResult()" class="clear">C</button>
-      <button onclick="calculate()" class="equal">=</button>
-      <button onclick="appendValue('+')">+</button>
-    </div>
-  </div>
 
-  <script>
-    // Append value to display
-    function appendValue(value) {
-      document.getElementById("result").value += value;
-    }
+    <script>
+        // Append value to display
+        function appendValue(value) {
+            document.getElementById("result").value += value;
+        }
 
-    // Clear the display
-    function clearResult() {
-      document.getElementById("result").value = "";
-    }
+        // Clear the display
+        function clearResult() {
+            document.getElementById("result").value = "";
+        }
 
-    // Calculate result
-    function calculate() {
-      try {
-        const resultField = document.getElementById("result");
-        resultField.value = eval(resultField.value);
-      } catch (error) {
-        document.getElementById("result").value = "Error";
-      }
-    }
+        // Calculate result
+        function calculate() {
+            try {
+                const resultField = document.getElementById("result");
+                resultField.value = eval(resultField.value);
+            } catch (error) {
+                document.getElementById("result").value = "Error";
+            }
+        }
 
-    // Keyboard support
-    document.addEventListener("keydown", function (event) {
-      const key = event.key;
+        // Keyboard support
+        document.addEventListener("keydown", function (event) {
+            const key = event.key;
 
-      if ((key >= "0" && key <= "9") || key === "." || ["+", "-", "*", "/"].includes(key)) {
-        appendValue(key);
-      } else if (key === "Enter") {
-        calculate();
-      } else if (key === "Backspace") {
-        document.getElementById("result").value = document.getElementById("result").value.slice(0, -1);
-      } else if (key.toLowerCase() === "c") {
-        clearResult();
-      }
-    });
-  </script>
+            if ((key >= "0" && key <= "9") || key === "." || ["+", "-", "*", "/"].includes(key)) {
+                appendValue(key);
+            } else if (key === "Enter") {
+                calculate();
+            } else if (key === "Backspace") {
+                document.getElementById("result").value = document.getElementById("result").value.slice(0, -1);
+            } else if (key.toLowerCase() === "c") {
+                clearResult();
+            }
+        });
+    </script>
 </body>
 </html>
